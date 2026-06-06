@@ -1,0 +1,325 @@
+<!-- Background Music Player Component -->
+<audio id="bgMusic" loop>
+    <source src="mm4.mp3" type="audio/mpeg">
+    <source src="mm4.mp3" type="audio/ogg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    // Wait for the page to fully load
+    window.addEventListener('load', function() {
+        const bgMusic = document.getElementById('bgMusic');
+        
+        // Try to play the music automatically
+        const playPromise = bgMusic.play();
+        
+        // Handle autoplay restrictions safely
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Autoplay prevented:", error);
+                // Dynamically build luxury controls if autoplay is blocked
+                createMusicControls();
+            });
+        }
+    });
+    
+    // Create visible controls matching Velvet Circle luxury design guidelines
+    function createMusicControls() {
+        const musicControls = document.createElement('div');
+        musicControls.id = 'music-controls';
+        
+        // Tailwind classes applied directly for perfect visual harmony
+        musicControls.className = 'fixed bottom-6 right-6 z-[10000] p-4 bg-neutral-950/95 border border-amber-500/20 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col gap-3 max-w-[280px] animate-reveal';
+        
+        musicControls.innerHTML = `
+            <div class="flex items-center gap-2 border-b border-neutral-900 pb-2">
+                <span class="text-amber-400 text-sm animate-pulse">⟡</span>
+                <p class="text-xs font-serif uppercase tracking-[0.1em] text-neutral-400">Music </p>
+            </div>
+            <div class="flex gap-2">
+                <button id="playMusicBtn" class="flex-1 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-medium text-xs uppercase tracking-wider rounded-xl transition-all duration-300 active:scale-95">
+                    ▶ Play
+                </button>
+                <button id="muteMusicBtn" class="px-3 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-neutral-400 text-xs uppercase tracking-wider rounded-xl transition-all duration-300">
+                    Mute
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(musicControls);
+        
+        // Event listeners handling smooth dismissal
+        document.getElementById('playMusicBtn').addEventListener('click', function() {
+            document.getElementById('bgMusic').play();
+            fadeOutControls(musicControls);
+        });
+        
+        document.getElementById('muteMusicBtn').addEventListener('click', function() {
+            fadeOutControls(musicControls);
+        });
+    }
+
+    // Optional utility for a smooth fade out instead of an abrupt hide
+    function fadeOutControls(element) {
+        element.style.transition = 'all 0.5s ease';
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 500);
+    }
+</script>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet Circle — Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Instrument Sans', system-ui, sans-serif; 
+        }
+        .font-serif { 
+            font-family: 'Cinzel', serif; 
+        }
+
+        /* Enhanced Luxury Typography */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        /* Cinematic Entrance Animations */
+        @keyframes revealUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            0% {
+                opacity: 0;
+                transform: scale(0.92);
+                filter: saturate(0) brightness(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: saturate(1) brightness(1);
+            }
+        }
+
+        @keyframes fadeInBlur {
+            0% { opacity: 0; filter: blur(8px); }
+            100% { opacity: 1; filter: blur(0); }
+        }
+
+        .countdown-digit {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        .animate-reveal {
+            opacity: 0;
+            animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-scale-in {
+            opacity: 0;
+            animation: scaleUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeInBlur 1s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+    </style>
+</head>
+<body class="bg-neutral-950 text-neutral-100 antialiased overflow-x-hidden">
+
+    <header class="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center border-b border-neutral-900 animate-fade-in">
+        <div class="flex items-center gap-4">
+            <div class="relative flex items-center justify-center w-10 h-10 rounded-full border border-amber-500/30 bg-neutral-900/50 shadow-lg shadow-amber-500/10 group">
+                <div class="absolute inset-0 rounded-full bg-amber-500/10 blur-sm group-hover:blur-md transition-all"></div>
+                <img src="logo.jpg" alt="Velvet Circle" class="w-6 h-6">
+            </div>
+            <h1 class="text-2xl font-bold tracking-[0.15em] text-amber-400 font-serif">VELVET CIRCLE</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-xs tracking-widest uppercase text-neutral-500 border border-neutral-800 px-3 py-1 rounded-full">
+                Est. 2026
+            </span>
+            <span class="px-4 py-1 text-xs font-medium tracking-widest bg-amber-500 text-neutral-950 rounded-full">AWAITED</span>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 py-12 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-8">
+            <span class="text-xs font-semibold tracking-[0.25em] uppercase text-amber-400 block animate-reveal">
+                Intimate • Soulful • Diaspora
+            </span>
+            <h2 class="text-5xl sm:text-7xl font-serif tracking-tighter leading-[1.05] text-white animate-reveal delay-100">
+                Our destiny<br>
+                <span class="italic text-amber-300">is intertwining.</span>
+            </h2>
+            <p class="text-neutral-400 text-xl max-w-lg font-light leading-relaxed animate-reveal delay-200"> 
+                Velvet Circle is a private sanctuary where the beautiful souls of the global African diaspora meet. We blend romance, heritage, and deep devotion to orchestrate extraordinary love across continents.
+            </p>
+
+            
+
+            <form id="notify-form" class="flex flex-col sm:flex-row gap-3 max-w-lg pt-8 animate-reveal delay-300">
+                <input type="email" id="email" placeholder="your@email.com" required 
+                    class="w-full px-6 py-5 rounded-2xl bg-neutral-900 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400 transition-all text-base">
+                <button type="submit" 
+                    class="w-full sm:w-auto px-10 py-5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-semibold uppercase tracking-widest text-sm rounded-2xl whitespace-nowrap transition-all duration-300 active:scale-95">
+                    Request Invitation
+                </button>
+            </form>
+            
+            <p class="text-xs text-neutral-500 animate-reveal delay-400">Join our intimate waitlist for priority access and exclusive founding-lover privileges.</p>
+        </div>
+
+        <div class="lg:col-span-5 relative group animate-scale-in delay-200">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent mix-blend-overlay rounded-3xl z-10"></div>
+            <div class="absolute -inset-4 border border-amber-500/20 rounded-3xl pointer-events-none transition-all group-hover:scale-[1.02] duration-700"></div>
+            <div class="relative h-[520px] sm:h-[620px] w-full overflow-hidden rounded-3xl bg-neutral-900 border border-neutral-800 shadow-2xl">
+                <img src="https://i.pinimg.com/736x/11/55/96/115596216b95baa6c4aa79b37633554a.jpg" 
+                     alt="Velvet Circle Romance" 
+                     class="w-full h-full object-cover grayscale-[0.2] contrast-125">
+                <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="h-px bg-gradient-to-r from-transparent via-neutral-900 to-transparent"></div>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 order-2 lg:order-1 relative animate-scale-in delay-400">
+                <div class="relative h-[420px] sm:h-[520px] w-full overflow-hidden rounded-3xl bg-neutral-900 border border-neutral-800">
+                    <img src="https://i.pinimg.com/736x/3b/33/7c/3b337c5d9b5d986fbd73475c6530cc20.jpg" 
+                         alt="Passionate Connections" 
+                         class="w-full h-full object-cover opacity-85">
+                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 order-1 lg:order-2 space-y-8 lg:pl-8 animate-reveal delay-500">
+                <div class="h-0.5 w-12 bg-amber-400"></div>
+                <h3 class="text-4xl font-serif text-white tracking-tighter leading-tight">
+                    For those with devotion,<br>honor heritage, and seek romance.
+                </h3>
+                <p class="text-neutral-400 text-lg font-light leading-relaxed max-w-2xl">
+                    Velvet Circle is a tender, sophisticated space curated for kindred spirits. We transcend geography to bind passionate hearts, celebrating love that feels like coming home.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-8 pt-8">
+                    <div>
+                        <p class="text-3xl font-serif text-amber-400">Boundless</p>
+                        <p class="text-sm text-neutral-500 mt-2">Love across borders</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-serif text-amber-400">Intimate</p>
+                        <p class="text-sm text-neutral-500 mt-2">Devoted & verified hearts</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-serif text-amber-400">Passionate</p>
+                        <p class="text-sm text-neutral-500 mt-2">Rooted in deep intention</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-serif text-amber-400">Eternal</p>
+                        <p class="text-sm text-neutral-500 mt-2">Built to last a lifetime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="w-full border-t border-neutral-900 py-12 bg-neutral-950/80">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center text-center gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 rounded-full border border-amber-500/30 flex items-center justify-center">
+                    <span class="text-amber-400 text-2xl">⟡</span>
+                </div>
+                <p class="text-2xl font-serif tracking-wider text-amber-400">VELVET CIRCLE</p>
+            </div>
+            
+            <p class="text-neutral-500 max-w-md">
+                A breathtaking new era for romance in the African diaspora is drawing near.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6 text-xs text-neutral-600 pt-6 border-t border-neutral-900 w-full">
+                <p>&copy; 2026 Velvet Circle. Beautifully Reserved.</p>
+                <p class="tracking-widest">Intimate • Devoted • Eternal</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function startCountdown() {
+            const launchDate = new Date("2026-12-15T00:00:00").getTime();
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minutesEl = document.getElementById("minutes");
+            const secondsEl = document.getElementById("seconds");
+            
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = launchDate - now;
+                
+                if (distance < 0) {
+                    daysEl.textContent = "00"; hoursEl.textContent = "00";
+                    minutesEl.textContent = "00"; secondsEl.textContent = "00";
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                daysEl.textContent = String(days).padStart(2, '0');
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        document.getElementById("notify-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const btn = this.querySelector("button");
+            btn.textContent = "OUR HEARTS ARE ONE";
+            setTimeout(() => {
+                alert("Thank you. You will be softly notified the moment our Circle opens.");
+                btn.textContent = "REQUEST INVITATION";
+                this.reset();
+            }, 1500);
+        });
+
+        window.onload = startCountdown;
+    </script>
+</body>
+</html>
